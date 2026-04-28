@@ -27,11 +27,12 @@
 | `/wf:plan` | 阶段 2：架构决策，撰写 PRD 和 ADR | `.wf/plans/PRD-<feature_id>.md`、`.wf/adr/ADR-NNN-*.md` |
 | `/wf:code` | 阶段 3：实现；并行调度 explorer / architect / reviewer 三个子代理协作 | 源代码文件；阶段保持 `coding` |
 | `/wf:review` | 阶段 4：基于五档 confidence scoring 的独立审查 | `.wf/reviews/<feature_id>-<round>.md`；只有零个 ≥80 issue 才能进 `done` |
+| `/wf:archive` | （可选）清理：把当前已完成 feature 的产物收拢到 `.wf/archive/<feature_id>/` 并重置 STATE | `.wf/archive/<feature_id>/` 子目录；ADR 留在 `.wf/adr/` 不动 |
 
 ## 状态机
 
 ```
-brainstorm → planning → coding ⇄ reviewing → done
+brainstorm → planning → coding ⇄ reviewing → done →（可选 /wf:archive）→ 重置
                           ↑          │
                           └──────────┘
                   （任意 issue confidence ≥ 80）
@@ -51,8 +52,15 @@ brainstorm → planning → coding ⇄ reviewing → done
 │   └── PRD-<feature_id>.md
 ├── adr/
 │   └── ADR-NNN-<slug>.md
-└── reviews/
-    └── <feature_id>-<round>.md
+├── reviews/
+│   └── <feature_id>-<round>.md
+└── archive/                                 # 由 /wf:archive 创建（可选）
+    └── <feature_id>/
+        ├── brainstorm.md
+        ├── brainstorm-visual-<n>.html
+        ├── PRD.md
+        └── reviews/
+            └── round-<N>.md
 ```
 
 首次运行时，插件会自动把 `.wf/` 追加到项目的 `.gitignore`（如果还没有的话）。如果你想让 PRD/ADR 进入 git 历史，手动 `mv` 到 `docs/` 即可——插件不会替你做这个决定。

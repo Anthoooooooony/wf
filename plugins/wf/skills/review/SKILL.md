@@ -14,7 +14,7 @@ The main agent performs the review directly — it does **not** dispatch the `co
 After producing the review report, count issues with confidence ≥ 80.
 
 - If count > 0: STATE.md phase MUST be set back to `coding`, `review_round` MUST be incremented by 1, and this session MUST end. The user has to explicitly run `/wf:code` to continue addressing issues. Do NOT keep the session active "to also fix them right now" — that defeats the round counter and the audit trail.
-- If count == 0: STATE.md phase MAY advance to `done`. Tell the user the feature is ready to commit / open a PR / archive.
+- If count == 0: STATE.md phase MAY advance to `done`. Tell the user the feature is ready to commit / open a PR, and that `/wf:archive` is available as an optional cleanup step.
 </HARD-GATE>
 
 ## Phase Validation
@@ -37,7 +37,7 @@ You MUST create a task for each item:
 5. **Group findings by severity** — Critical (≥ 95) and Important (≥ 80); discard < 80 from the report
 6. **Write the review report** to `.wf/reviews/<feature_id>-<round>.md` (where `round` is the current `review_round + 1`)
 7. **Apply the hard gate** — see HARD-GATE above
-8. **Tell the user the next action** — either `/wf:code` to address issues, or commit/PR/archive if `done`
+8. **Tell the user the next action** — either `/wf:code` to address issues, or commit / PR / `/wf:archive` if `done`
 
 ## Review Scope
 
@@ -127,7 +127,7 @@ issues_above_threshold = count of issues with confidence >= 80
    - `phase: done`
    - Append a phase-log entry: `<ISO timestamp> review round <N> passed (0 issues at confidence >= 80) — phase advanced to done`
 3. Tell the user:
-   > "Review round <N> passed. The feature is ready. Suggested next steps: commit changes, open a PR, or archive `.wf/<feature_id>` if you want to clean up."
+   > "Review round <N> passed. The feature is ready. Suggested next steps: commit changes, open a PR, or run `/wf:archive` to collapse this feature's artifacts into `.wf/archive/<feature_id>/` and reset STATE for the next feature."
 
 ## Why This Skill Does Not Use code-reviewer
 
@@ -143,4 +143,4 @@ Keeping these separate makes the gate honest. The main agent applies confidence 
 - **Confidence threshold is non-negotiable** — 80 is the line. Do not soften it for ergonomics.
 - **One round = one report** — never edit a prior round's report; write a new one.
 - **End the session on fail** — let the user re-enter `/wf:code` deliberately, not be auto-bridged into it.
-- **Pass means done** — no extra ceremony at the `done` transition; the user takes it from there (commit, PR, archive).
+- **Pass means done** — no extra ceremony at the `done` transition; the user decides what's next (commit, PR, `/wf:archive`).

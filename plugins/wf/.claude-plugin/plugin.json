@@ -1,6 +1,6 @@
 {
   "name": "wf",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A focused four-stage workflow plugin: brainstorm, plan, code, review. Slash-only invocation, all artifacts under .wf/, hard review-to-code loop on confidence >= 80.",
   "author": {
     "name": "mikaa"
