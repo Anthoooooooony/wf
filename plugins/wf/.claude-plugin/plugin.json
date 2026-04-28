@@ -6,9 +6,6 @@
     "name": "mikaa"
   },
   "homepage": "https://github.com/Anthoooooooony/wf",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Anthoooooooony/wf.git"
-  },
+  "repository": "https://github.com/Anthoooooooony/wf.git",
   "keywords": ["workflow", "brainstorm", "plan", "adr", "prd", "review"]
 }
