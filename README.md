@@ -8,7 +8,15 @@
 
 ```
 /plugin marketplace add Anthoooooooony/wf
-/plugin install wf@Anthoooooooony/wf
+/plugin install wf@wf-marketplace
+```
+
+第一条命令把这个仓库注册为名为 `wf-marketplace` 的 marketplace（名字来自 `.claude-plugin/marketplace.json` 的 `name` 字段，与 GitHub 仓库名 `wf` 不同）。第二条命令从该 marketplace 安装名为 `wf` 的 plugin。
+
+如果在 marketplace 添加后想刷新到最新提交，运行：
+
+```
+/plugin marketplace update wf-marketplace
 ```
 
 ## 命令

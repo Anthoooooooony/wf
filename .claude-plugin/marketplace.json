@@ -1,0 +1,14 @@
+{
+  "name": "wf-marketplace",
+  "owner": {
+    "name": "mikaa"
+  },
+  "description": "Marketplace hosting the wf workflow plugin.",
+  "plugins": [
+    {
+      "name": "wf",
+      "source": "./plugins/wf",
+      "description": "Four-stage workflow plugin: brainstorm, plan, code, review. Slash-only invocation, .wf/ artifacts, hard review-to-code loop on confidence >= 80."
+    }
+  ]
+}
